@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+
+"""Concept of pascal's triangle"""
+
+
 def pascal_triangle(n):
     """
     Generate Pascal's Triangle of size n.
