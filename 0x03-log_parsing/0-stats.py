@@ -2,7 +2,6 @@
 
 import sys
 
-
 def print_statistics(total_size, status_counts):
     """
     Prints the computed statistics.
@@ -15,7 +14,6 @@ def print_statistics(total_size, status_counts):
     for status_code in sorted(status_counts.keys()):
         if status_counts[status_code] > 0:
             print(f"{status_code}: {status_counts[status_code]}")
-
 
 def parse_line(line, total_size, status_counts):
     """
@@ -38,7 +36,6 @@ def parse_line(line, total_size, status_counts):
 
     return total_size
 
-
 def main():
     total_size = 0
     status_counts = {}
@@ -55,7 +52,6 @@ def main():
     except KeyboardInterrupt:
         print_statistics(total_size, status_counts)
         sys.exit(0)
-
 
 if __name__ == "__main__":
     main()
