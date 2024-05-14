@@ -8,12 +8,14 @@ def is_prime(num):
             return False
     return True
 
+
 def generate_primes(limit):
     primes = []
     for num in range(2, limit + 1):
         if is_prime(num):
             primes.append(num)
     return primes
+
 
 def play_round(primes, n):
     if n <= 1:
@@ -22,6 +24,7 @@ def play_round(primes, n):
         if prime <= n and n % prime == 0:
             return "Ben"
     return "Maria"
+
 
 def isWinner(x, nums):
     maria_wins = 0
@@ -37,6 +40,7 @@ def isWinner(x, nums):
         return "Ben"
     else:
         return "Maria"
+
 
 if __name__ == "__main__":
     print("Winner: {}".format(isWinner(5, [2, 5, 1, 4, 3])))
