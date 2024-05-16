@@ -1,45 +1,61 @@
 #!/usr/bin/python3
 
-def is_prime(num):
-    if num < 2:
+
+def is_prime(n):
+    if n <= 1:
         return False
-    for i in range(2, int(num ** 0.5) + 1):
-        if num % i == 0:
+    if n <= 3:
+        return True
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+    i = 5
+    while i * i <= n:
+        if n % i == 0 or n % (i + 2) == 0:
             return False
+        i += 6
     return True
 
 
-def generate_primes(limit):
+def sieve_of_eratosthenes(n):
     primes = []
-    for num in range(2, limit + 1):
-        if is_prime(num):
-            primes.append(num)
+    sieve = [True] * (n + 1)
+    p = 2
+    while p**2 <= n:
+        if sieve[p]:
+            primes.append(p)
+            for i in range(p**2, n + 1, p):
+                sieve[i] = False
+        p += 1
+    for p in range(p, n + 1):
+        if sieve[p]:
+            primes.append(p)
     return primes
 
 
-def play_round(primes, n):
-    if n <= 1:
-        return None  # No prime numbers to choose
+def simulate_round(nums):
+    primes = sieve_of_eratosthenes(max(nums))
     for prime in primes:
-        if prime <= n and n % prime == 0:
-            return "Ben"
+        nums = [num for num in nums if num % prime != 0 or num == prime]
+        if not nums:
+            return "Maria" if prime in nums else "Ben"
     return "Maria"
 
 
 def isWinner(x, nums):
     maria_wins = 0
     ben_wins = 0
-    primes = generate_primes(max(nums))
-    for n in nums:
-        winner = play_round(primes, n)
+    for i in range(x):
+        winner = simulate_round(list(range(1, nums[i] + 1)))
         if winner == "Maria":
             maria_wins += 1
         elif winner == "Ben":
             ben_wins += 1
-    if ben_wins > maria_wins:
+    if maria_wins > ben_wins:
+        return "Maria"
+    elif maria_wins < ben_wins:
         return "Ben"
     else:
-        return "Maria"
+        return None
 
 
 if __name__ == "__main__":
